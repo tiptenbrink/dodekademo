@@ -20,29 +20,29 @@ jobs:
         with:
           repository: DSAV-Dodeka/DSAV-Dodeka.github.io
           ref: development
-          path:  ${{ env.SERVER_REPO_PATH }}
+          path:  ${{ env.SOURCE_PATH }}
       - name: Show content
         run: |
-          cd '${{ env.SERVER_REPO_PATH }}'
+          cd '${{ env.SOURCE_PATH }}'
           ls -a
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: 'npm'
-          cache-dependency-path: '${{ env.SERVER_REPO_PATH }}/package-lock.json'
+          cache-dependency-path: '${{ env.SOURCE_PATH }}/package-lock.json'
       - name: Install dependencies
         run: npm install
-        working-directory: ${{ env.SERVER_REPO_PATH }}
+        working-directory: ${{ env.SOURCE_PATH }}
       - name: Build staging
         run: npm run build-mode -- --mode staging
-        working-directory: ${{ env.SERVER_REPO_PATH }}
+        working-directory: ${{ env.SOURCE_PATH }}
       - name: Move output
-        run: mv ${{ env.SERVER_REPO_PATH }}/dist/** .
+        run: mv ${{ env.SOURCE_PATH }}/dist/** .
       - name: Show status
         run: git status
       - uses: stefanzweifel/git-auto-commit-action@v5
         if: github.event_name != 'pull_request'
         with:
           commit_message: Staging build (automated)
-          file_pattern: '*.html assets/**'
+          file_pattern: 'index.html assets/**'
