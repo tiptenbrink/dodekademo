@@ -21,6 +21,10 @@ jobs:
           repository: DSAV-Dodeka/DSAV-Dodeka.github.io
           ref: development
           path:  ${{ env.SERVER_REPO_PATH }}
+      - name: Show content
+        run: |
+          cd '${{ env.SERVER_REPO_PATH }}'
+          ls -a
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
