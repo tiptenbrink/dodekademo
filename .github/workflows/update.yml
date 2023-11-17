@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: DSAV-Dodeka/DSAV-Dodeka.github.io
-          ref: admin
+          ref: development
           path:  ${{ env.SOURCE_PATH }}
       - name: Show content
         run: |
